@@ -1,0 +1,22 @@
+{
+  "name": "nextjs",
+  "version": "4.0.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "clsx": "latest",
+    "mongodb": "^3.6.9",
+    "next": "latest",
+    "next-auth": "^3.25.0",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "sqlite3": "^5.0.2"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+  }
+}

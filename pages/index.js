@@ -5,6 +5,7 @@ import { Button, Container } from '@material-ui/core';
 
 export default function Index() {
   const [session, loading] = useSession();
+  console.log(session);
   return (
     <>
       <Container
@@ -20,6 +21,8 @@ export default function Index() {
             Not signed in
             <Button onClick={signIn}>Sign In</Button>
           </>
+        ) : loading ? (
+          <>loading</>
         ) : (
           <>
             Signed in as {session.user.email}

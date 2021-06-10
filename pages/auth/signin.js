@@ -1,7 +1,7 @@
 import { signIn } from 'next-auth/client';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Typography, Container } from '@material-ui/core';
+import { Typography, Container, TextField, Button } from '@material-ui/core';
 
 export default function SignIn() {
   const router = useRouter();
@@ -37,7 +37,7 @@ export default function SignIn() {
       }}
     >
       <form onSubmit={handleSubmit}>
-        <label>
+        {/* <label>
           Email
           <input
             name='email'
@@ -56,7 +56,27 @@ export default function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type='submit'>Sign in</button>
+        <button type='submit'>Sign in</button> */}
+
+        <TextField
+          variant='standard'
+          type='text'
+          name='Email'
+          label='Email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></TextField>
+
+        <TextField
+          variant='standard'
+          type='password'
+          name='password'
+          label='Password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></TextField>
+
+        <Button type='submit'>Submit</Button>
       </form>
       <br /> <br /> <br />
       {loginError && (

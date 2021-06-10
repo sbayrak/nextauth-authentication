@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import { connectToDatabase } from '../../../util/mongodb';
 
 const options = {
   providers: [
@@ -31,7 +30,8 @@ const options = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
-        console.log(credentials);
+        let user;
+
         const res = await fetch('http://localhost:3000/api/profile/', {
           method: 'POST',
           body: JSON.stringify(credentials),
@@ -39,9 +39,8 @@ const options = {
             'Content-Type': 'application/json',
           },
         });
-        const user = await res.json();
-
-        // const user = { id: '1', name: 'Suat Bayrak', email: 'test@test.com2' };
+        const arrayToJson = await res.json();
+        user = arrayToJson[0];
 
         if (user) {
           return user;
@@ -52,20 +51,42 @@ const options = {
     }),
   ],
   pages: {
-    signIn: '/signin',
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error',
   },
   session: {
     jwt: true,
     maxAge: 30 * 24 * 60 * 60,
     updateAge: 24 * 60 * 60,
   },
+  callbacks: {
+    // async signIn(user) {
+    //   return user.userId && user.isActive === '1';
+    // },
+    async signIn(user, account, profile) {
+      if (user.userId && user.isActive === '1') {
+        return true;
+      } else {
+        // Return false to display a default error message
+        return '/auth/error';
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
+    },
+    async session(session, token) {
+      session.user = token.user;
+      return session;
+    },
+    async jwt(token, user) {
+      if (user) token.user = user;
+      return token;
+    },
+    async redirect(url, baseUrl) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
+  },
 
-  // callbacks: {
-  //   async redirect(url, baseUrl) {
-  //     console.log(`url is ${url} and baseUrl is ${baseUrl}`);
-  //     return `${baseUrl}/about`;
-  //   },
-  // },
   database: `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@nextjs-academia-sb.ki5vd.mongodb.net/test`,
 };
 

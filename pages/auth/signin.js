@@ -1,20 +1,47 @@
 import { signIn } from 'next-auth/client';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Container, TextField, Button } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  formCredentials: {
+    border: '1px solid red',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+  },
+}));
 
 export default function SignIn() {
   const router = useRouter();
+  const classes = useStyles();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const handleSubmit = async (e) => {
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    signIn('email', { email: 'suat.bayrak@bilgiedu.net' });
+  };
+
+  const handleCredentialsSignIn = async (e) => {
     e.preventDefault();
 
     signIn('credentials', {
       redirect: false,
-      callbackUrl: 'http://localhost:3000/about',
+      callbackUrl: `${window.location.origin}/about`,
       email: email,
       password: password,
     }).then(function (result) {
@@ -28,36 +55,30 @@ export default function SignIn() {
   };
 
   return (
-    <Container
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <form onSubmit={handleSubmit}>
-        {/* <label>
-          Email
-          <input
+    <Container className={classes.container}>
+      <form className={classes.formCredentials} onSubmit={handleRegister}>
+        <Typography variant='h6'>Register</Typography>
+        <label>
+          Email address
+          <TextField
+            variant='standard'
+            type='email'
             name='email'
-            type='text'
+            label='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
+          ></TextField>
         </label>
-        <br />
-        <label>
-          Password
-          <input
-            name='password'
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button type='submit'>Sign in</button> */}
 
+        <Button type='submit' variant='outlined' fullWidth>
+          Submit
+        </Button>
+      </form>
+      <form
+        onSubmit={handleCredentialsSignIn}
+        className={classes.formCredentials}
+      >
+        <Typography variant='h6'>Credentials Sign In</Typography>
         <TextField
           variant='standard'
           type='text'
@@ -76,7 +97,9 @@ export default function SignIn() {
           onChange={(e) => setPassword(e.target.value)}
         ></TextField>
 
-        <Button type='submit'>Submit</Button>
+        <Button type='submit' variant='outlined' fullWidth>
+          Submit
+        </Button>
       </form>
       <br /> <br /> <br />
       {loginError && (

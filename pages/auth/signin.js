@@ -9,7 +9,14 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const handleSubmit = async (e) => {
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    signIn('email', { email: email });
+  };
+
+  const handleCredentialsSignIn = async (e) => {
     e.preventDefault();
 
     signIn('credentials', {
@@ -34,30 +41,38 @@ export default function SignIn() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'column',
       }}
     >
-      <form onSubmit={handleSubmit}>
-        {/* <label>
+      {/* 
+      
+      <form onSubmit={submitHandler}>
+        <label>
           Email
           <input
-            name='email'
             type='text'
+            name='email'
+            id='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <button type='submit'>submit</button>
         </label>
-        <br />
-        <label>
-          Password
-          <input
-            name='password'
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button type='submit'>Sign in</button> */}
+      </form>
+      */}
+      <form onSubmit={handleRegister}>
+        <TextField
+          variant='standard'
+          type='text'
+          name='email'
+          label='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></TextField>
 
+        <Button type='submit'>Submit</Button>
+      </form>
+      <form onSubmit={handleCredentialsSignIn}>
         <TextField
           variant='standard'
           type='text'

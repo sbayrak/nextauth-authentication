@@ -28,8 +28,8 @@ const Secret = () => {
             {session ? (
               <div>
                 protected route : {content} <br />
-                <Link href='/secret'>
-                  <a>Secret page</a>
+                <Link href='/'>
+                  <a>home page</a>
                 </Link>
               </div>
             ) : (

@@ -32,7 +32,7 @@ const options = {
       async authorize(credentials, req) {
         let user;
 
-        const res = await fetch(`${NEXTAUTH_URL}/api/profile/`, {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/profile/`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: {

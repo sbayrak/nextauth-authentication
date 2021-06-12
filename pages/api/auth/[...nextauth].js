@@ -31,9 +31,12 @@ const options = {
       },
       async authorize(credentials, req) {
         let user;
-        const domainName = req.get('host');
+        const domainName =
+          process.env.NODE === 'production'
+            ? process.env.NEXTAUTH_URL
+            : 'http://localhost:3000';
 
-        const res = await fetch(`${req.hostname}/api/profile/`, {
+        const res = await fetch(`${domainName}/api/profile/`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: {

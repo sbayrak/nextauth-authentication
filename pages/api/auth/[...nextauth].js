@@ -37,6 +37,7 @@ const options = {
           body: JSON.stringify(credentials),
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
           },
         });
         const arrayToJson = await res.json();

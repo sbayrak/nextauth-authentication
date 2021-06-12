@@ -37,9 +37,7 @@ const options = {
           body: JSON.stringify(credentials),
           headers: {
             'Content-Type': 'application/json',
-            'User-Agent': 'ANYTHING_WILL_WORK_HERE',
           },
-          mode: 'no-cors',
         });
         const arrayToJson = await res.json();
         user = arrayToJson[0];

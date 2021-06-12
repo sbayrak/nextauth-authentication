@@ -32,7 +32,7 @@ const options = {
       async authorize(credentials, req) {
         let user;
         const domainName =
-          process.env.NODE === 'production'
+          process.env.NODE_ENV === 'production'
             ? process.env.NEXTAUTH_URL
             : 'http://localhost:3000';
 

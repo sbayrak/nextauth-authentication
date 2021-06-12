@@ -37,8 +37,9 @@ const options = {
           body: JSON.stringify(credentials),
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
+            'User-Agent': 'ANYTHING_WILL_WORK_HERE',
           },
+          mode: 'cors',
         });
         const arrayToJson = await res.json();
         user = arrayToJson[0];

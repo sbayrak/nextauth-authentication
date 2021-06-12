@@ -14,6 +14,7 @@ export default async (req, res) => {
       .find({ email: email, password: password })
       .toArray();
 
-    res.status(201).json(response);
+    const user = JSON.stringify(response);
+    res.status(201).json(user);
   }
 };

@@ -39,7 +39,7 @@ const options = {
             'Content-Type': 'application/json',
             'User-Agent': 'ANYTHING_WILL_WORK_HERE',
           },
-          mode: 'cors',
+          mode: 'no-cors',
         });
         const arrayToJson = await res.json();
         user = arrayToJson[0];

@@ -31,8 +31,9 @@ const options = {
       },
       async authorize(credentials, req) {
         let user;
+        const domainName = req.get('host');
 
-        const res = await fetch(`${window.location.origin}/api/profile/`, {
+        const res = await fetch(`${domainName}/api/profile/`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: {

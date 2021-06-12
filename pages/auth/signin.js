@@ -21,7 +21,7 @@ export default function SignIn() {
 
     signIn('credentials', {
       redirect: false,
-      callbackUrl: 'http://localhost:3000/about',
+      callbackUrl: `${window.location.origin}/about`,
       email: email,
       password: password,
     }).then(function (result) {

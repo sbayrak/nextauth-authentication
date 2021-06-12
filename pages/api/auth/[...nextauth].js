@@ -33,7 +33,7 @@ const options = {
         let user;
         const domainName = req.get('host');
 
-        const res = await fetch(`${domainName}/api/profile/`, {
+        const res = await fetch(`${req.hostname}/api/profile/`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: {

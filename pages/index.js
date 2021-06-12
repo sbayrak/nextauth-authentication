@@ -12,7 +12,7 @@ export default function Index() {
   const signOutHandler = async () => {
     const data = await signOut({
       redirect: false,
-      callbackUrl: 'http://localhost:3000/auth/signout',
+      callbackUrl: `${window.location.origin}/auth/signout`,
     });
     router.push(data.url);
   };

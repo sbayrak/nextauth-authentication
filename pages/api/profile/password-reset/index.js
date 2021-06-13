@@ -6,7 +6,7 @@ export default async (req, res) => {
 
   const token = uuidv4();
   const { email } = req.body;
-  const callbackUrl = `${process.env.NEXTAUTH_URL}/auth/verifyrequest`;
+  const callbackUrl = `${process.env.NEXTAUTH_URL}auth/verifyrequest`;
 
   if (req.method === 'POST') {
     const date = new Date();

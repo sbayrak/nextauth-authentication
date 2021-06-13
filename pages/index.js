@@ -28,8 +28,24 @@ export default function Index() {
       >
         {!session ? (
           <>
-            Not signed in
-            <Button onClick={signIn}>Sign In</Button>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                Not signed in
+                <Button onClick={signIn}>Sign In</Button>
+                <br /> <br />
+              </div>
+              <div>
+                <Link href='/auth/password-reset'>
+                  <a>Forgot Password</a>
+                </Link>
+              </div>
+            </div>
           </>
         ) : loading ? (
           <>loading</>

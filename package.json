@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "latest",
+    "@sendgrid/mail": "^7.4.4",
     "clsx": "latest",
     "mongodb": "^3.6.9",
     "next": "latest",
@@ -12,7 +13,8 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "dev": "next",

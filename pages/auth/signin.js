@@ -19,18 +19,35 @@ export default function SignIn() {
   //   signIn('email', { email: email });
   // };
 
-
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    console.log('submitted!');
+    const submitData = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/profile/verify-email/`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email2, password: password2 }),
+      }
+    );
+    const data = await submitData.json();
+    if (data) {
+      await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/profile/verify-email/email/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: data[0].email, token: data[0].token }),
+        }
+      );
 
-    const submitData = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/profile/verify-email/`, {
-      method: 'POST',
-      body: JSON.stringify({email: email2, password: password2})
-    });
-
-  }
+      router.push(`${data[0].callbackUrl}`); //  callback to URL/auth/verifyrequest
+    }
+  };
 
   const handleCredentialsSignIn = async (e) => {
     e.preventDefault();
@@ -41,7 +58,6 @@ export default function SignIn() {
       email: email,
       password: password,
     }).then(function (result) {
-      console.log(result);
       if (result.error === 'CredentialsSignin') {
         setLoginError(result.error);
       } else {
@@ -49,8 +65,6 @@ export default function SignIn() {
       }
     });
   };
-
-
 
   return (
     <Container
@@ -75,11 +89,8 @@ export default function SignIn() {
           <button type='submit'>submit</button>
         </label>
       </form> */}
-
-
-
-      <form onSubmit={handleRegister} style={{marginBottom: '60px'}}>
-      <TextField
+      <form onSubmit={handleRegister} style={{ marginBottom: '60px' }}>
+        <TextField
           variant='standard'
           type='text'
           name='Email'
@@ -88,19 +99,16 @@ export default function SignIn() {
           onChange={(e) => setEmail2(e.target.value)}
         ></TextField>
         <TextField
-            variant='standard'
-            type='password'
-            name='Password'
-            label='Password'
-            value={password2}
-            onChange={(e) => setPassword2(e.target.value)}
-          ></TextField>
+          variant='standard'
+          type='password'
+          name='Password'
+          label='Password'
+          value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
+        ></TextField>
 
-<Button type='submit'>Submit</Button>
+        <Button type='submit'>Submit</Button>
       </form>
-
-
-
       <form onSubmit={handleCredentialsSignIn}>
         <TextField
           variant='standard'

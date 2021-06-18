@@ -15,7 +15,11 @@ export default async (req, res) => {
     const isUserExists = await db.collection('users').findOne({ email });
 
     if (isUserExists) {
-      res.status(201).json({ success: true });
+      const callbackUrl = `${process.env.NEXTAUTH_URL}/auth/verifyrequest`;
+
+      res
+        .status(201)
+        .json({ msg: 'exists', callbackUrl, email: '', token: '' });
       console.log('User exists!');
     } else if (!isUserExists) {
       const newVerificationRequest = await db

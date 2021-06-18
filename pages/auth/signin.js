@@ -33,7 +33,9 @@ export default function SignIn() {
       }
     );
     const data = await submitData.json();
-    if (data) {
+    if (data.msg === 'exists') {
+      router.push(`${data.callbackUrl}`); //  callback to URL/auth/verifyrequest
+    } else if (data) {
       await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/profile/verify-email/email/`,
         {
@@ -41,7 +43,10 @@ export default function SignIn() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email: data[0].email, token: data[0].token }),
+          body: JSON.stringify({
+            email: data[0].email,
+            token: data[0].token,
+          }),
         }
       );
 

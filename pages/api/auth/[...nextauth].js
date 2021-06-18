@@ -56,48 +56,48 @@ const options = {
     //   clientId: process.env.GITHUB_ID,
     //   clientSecret: process.env.GITHUB_SECRET,
     // }),
-    Providers.Email({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
-      from: process.env.EMAIL_FROM,
-      sendVerificationRequest: ({
-        identifier: email,
-        url,
-        token,
-        baseUrl,
-        provider,
-      }) => {
-        return new Promise((resolve, reject) => {
-          const { server, from } = provider;
-          const site = baseUrl.replace(/^https?:\/\//, '');
+    // Providers.Email({
+    //   server: {
+    //     host: process.env.EMAIL_SERVER_HOST,
+    //     port: process.env.EMAIL_SERVER_PORT,
+    //     auth: {
+    //       user: process.env.EMAIL_SERVER_USER,
+    //       pass: process.env.EMAIL_SERVER_PASSWORD,
+    //     },
+    //   },
+    //   from: process.env.EMAIL_FROM,
+    //   sendVerificationRequest: ({
+    //     identifier: email,
+    //     url,
+    //     token,
+    //     baseUrl,
+    //     provider,
+    //   }) => {
+    //     return new Promise((resolve, reject) => {
+    //       const { server, from } = provider;
+    //       const site = baseUrl.replace(/^https?:\/\//, '');
 
-          nodemailer.createTransport(server).sendMail(
-            {
-              to: email,
-              from,
-              subject: `Sign in to ${site}`,
-              text: text({ url, site, email }),
-              html: html({ url, site, email }),
-            },
-            (error) => {
-              if (error) {
-                logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error);
-                return reject(
-                  new Error('SEND_VERIFICATION_EMAIL_ERROR', error)
-                );
-              }
-              return resolve();
-            }
-          );
-        });
-      },
-    }),
+    //       nodemailer.createTransport(server).sendMail(
+    //         {
+    //           to: email,
+    //           from,
+    //           subject: `Sign in to ${site}`,
+    //           text: text({ url, site, email }),
+    //           html: html({ url, site, email }),
+    //         },
+    //         (error) => {
+    //           if (error) {
+    //             logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error);
+    //             return reject(
+    //               new Error('SEND_VERIFICATION_EMAIL_ERROR', error)
+    //             );
+    //           }
+    //           return resolve();
+    //         }
+    //       );
+    //     });
+    //   },
+    // }),
     // Providers.Auth0({
     //   clientId: process.env.AUTH0_CLIENT_ID,
     //   clientSecret: process.env.AUTH0_CLIENT_SECRET,

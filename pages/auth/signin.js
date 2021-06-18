@@ -6,15 +6,31 @@ import { Typography, Container, TextField, Button } from '@material-ui/core';
 export default function SignIn() {
   const router = useRouter();
 
+  const [email2, setEmail2] = useState('');
+  const [password2, setPassword2] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  const handleRegister = (e) => {
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+
+  //   signIn('email', { email: email });
+  // };
+
+
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    signIn('email', { email: email });
-  };
+    console.log('submitted!');
+
+    const submitData = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/profile/verify-email/`, {
+      method: 'POST',
+      body: JSON.stringify({email: email2, password: password2})
+    });
+
+  }
 
   const handleCredentialsSignIn = async (e) => {
     e.preventDefault();
@@ -34,6 +50,8 @@ export default function SignIn() {
     });
   };
 
+
+
   return (
     <Container
       style={{
@@ -44,9 +62,7 @@ export default function SignIn() {
         flexDirection: 'column',
       }}
     >
-      {/* 
-      
-      <form onSubmit={submitHandler}>
+      {/* <form onSubmit={submitHandler}>
         <label>
           Email
           <input
@@ -58,20 +74,33 @@ export default function SignIn() {
           />
           <button type='submit'>submit</button>
         </label>
-      </form>
-      */}
-      <form onSubmit={handleRegister}>
-        <TextField
+      </form> */}
+
+
+
+      <form onSubmit={handleRegister} style={{marginBottom: '60px'}}>
+      <TextField
           variant='standard'
           type='text'
-          name='email'
-          label='email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name='Email'
+          label='Email'
+          value={email2}
+          onChange={(e) => setEmail2(e.target.value)}
         ></TextField>
+        <TextField
+            variant='standard'
+            type='password'
+            name='Password'
+            label='Password'
+            value={password2}
+            onChange={(e) => setPassword2(e.target.value)}
+          ></TextField>
 
-        <Button type='submit'>Submit</Button>
+<Button type='submit'>Submit</Button>
       </form>
+
+
+
       <form onSubmit={handleCredentialsSignIn}>
         <TextField
           variant='standard'

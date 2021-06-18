@@ -1,25 +1,25 @@
-# Next.js example
+# NextJS Authentication : NextAuth + Custom Password Reset
 
-## How to use
+This repository is a complete authentication boilerplate for NextJS applications.
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+## What is used ?
 
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/nextjs
-cd nextjs
-```
+- NextJS
+- NextAuth
+- ReactJS
+- SendGrid
+- Material-UI
+- MongoDB
+- Nodemailer
+- Uuid
+- Sqlite3
 
-Install it and run:
+## Who is this repository for ?
 
-```sh
-npm install
-npm run dev
-```
+Authentication has always been problematic and hard to implement for web developers. Here, I used NextAuth based authentication for NextJS applications. I used Passwordless Sign In and Credentials Sign In functionality of NextAuth and added password reset also. 
 
-or:
+## Deployment
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/master/examples/nextjs)
+I deployed it on Vercel. Here is the link so you can test it out.
 
-## The idea behind the example
-
-[Next.js](https://github.com/zeit/next.js) is a framework for server-rendered React apps.
+http://nextauth-authentication.vercel.app/

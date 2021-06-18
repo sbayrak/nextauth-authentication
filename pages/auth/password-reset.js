@@ -44,7 +44,6 @@ const PasswordReset = () => {
           }
         );
         const dataEmail = await resEmail.json();
-        console.log(dataEmail);
         router.push(data[0].callbackUrl);
       }
     }

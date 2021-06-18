@@ -15,11 +15,9 @@ export default async (req, res) => {
     sgMail
       .send(msg)
       .then(() => {
-        console.log('Email sent');
         res.status(201).json({ success: false });
       })
       .catch((error) => {
-        console.log(error);
         res.status(401).json({ success: false });
       });
   }
